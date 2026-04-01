@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5010/api',
   headers: {
     'Content-Type': 'application/json'
   }
@@ -24,6 +24,28 @@ export const updateItem = async (id, payload) => {
 
 export const deleteItem = async (id) => {
   const response = await api.delete(`/items/${id}`);
+  return response.data;
+};
+
+export const uploadItemImage = async (itemId, file) => {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  const response = await api.post(`/items/${itemId}/image`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+  return response.data;
+};
+
+export const getItemImages = async (itemId) => {
+  const response = await api.get(`/items/${itemId}/images`);
+  return response.data;
+};
+
+export const removeItemImage = async (itemId) => {
+  const response = await api.delete(`/items/${itemId}/image`);
   return response.data;
 };
 
