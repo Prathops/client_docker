@@ -120,7 +120,7 @@ function UpdateItem() {
           <div className="current-image">
             <label>Current Image:</label>
             <img 
-              src={`${import.meta.env.VITE_API_BASE_URL?.replace('/api', '') || 'http://localhost:5010'}${currentImage}`}
+              src={currentImage}
               alt="Current"
               style={{ maxWidth: '150px', maxHeight: '150px' }}
             />

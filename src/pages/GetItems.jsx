@@ -87,7 +87,7 @@ function GetItems() {
             <button className="modal-close" onClick={closeImageModal}>×</button>
             <h3>{selectedImage.name}</h3>
             <img
-              src={`${import.meta.env.VITE_API_BASE_URL?.replace('/api', '') || 'http://localhost:5010'}${selectedImage.image_url}`}
+              src={selectedImage.image_url}
               alt={selectedImage.name}
               className="modal-image"
               onError={(e) => {
