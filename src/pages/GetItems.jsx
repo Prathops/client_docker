@@ -12,7 +12,7 @@ function GetItems() {
     const fetchItems = async () => {
       try {
         const data = await getItems();
-        setItems(data);
+        setItems(Array.isArray(data) ? data : []);
       } catch (err) {
         setError(err.response?.data?.message || 'Failed to fetch items');
       } finally {
@@ -37,12 +37,14 @@ function GetItems() {
     return <p>Loading items...</p>;
   }
 
+  const visibleItems = Array.isArray(items) ? items : [];
+
   return (
     <section>
       <h2>All Items</h2>
       {error && <p className="error-text">{error}</p>}
-      {!error && items.length === 0 && <p>No items found.</p>}
-      {items.length > 0 && (
+      {!error && visibleItems.length === 0 && <p>No items found.</p>}
+      {visibleItems.length > 0 && (
         <table className="items-table">
           <thead>
             <tr>
@@ -54,7 +56,7 @@ function GetItems() {
             </tr>
           </thead>
           <tbody>
-            {items.map((item) => (
+            {visibleItems.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td className="item-name">{item.name}</td>
