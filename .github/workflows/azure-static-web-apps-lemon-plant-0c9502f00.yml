@@ -18,6 +18,8 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
+    env:
+      VITE_API_BASE_URL: https://hub-api.eastasia.cloudapp.azure.com/api
     steps:
       - uses: actions/checkout@v3
         with:
@@ -28,8 +30,8 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LEMON_PLANT_0C9502F00 }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }} 
-          action: "upload"
-          app_location: "/" 
-          api_location: "" 
-          output_location: "dist" 
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: upload
+          app_location: /
+          api_location: ""
+          output_location: dist
